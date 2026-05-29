@@ -112,6 +112,57 @@
         border: 3px solid #fca5a5;
       }
 
+      .start-tabs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .start-tab {
+        padding: 0.85rem 0.5rem;
+        border-radius: 1rem 1rem 0 0;
+        border: 3px solid #d6d3d1;
+        border-bottom: none;
+        background: #f5f5f4;
+        color: #57534e;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: inherit;
+        line-height: 1.35;
+      }
+
+      @media (min-width: 480px) {
+        .start-tab {
+          font-size: 1.15rem;
+          padding: 1rem 0.75rem;
+        }
+      }
+
+      .start-tab.active {
+        background: #fff;
+        color: #1c1917;
+        border-color: #f59e0b;
+        border-bottom: 3px solid #fff;
+        margin-bottom: -3px;
+        z-index: 1;
+        position: relative;
+      }
+
+      .start-tab-panel {
+        display: none;
+        border: 3px solid #f59e0b;
+        border-radius: 0 0 1rem 1rem;
+        padding: 1.25rem;
+        background: #fff;
+        margin-bottom: 1rem;
+      }
+
+      .start-tab-panel.active {
+        display: block;
+      }
+
       .screen-panel {
         display: none;
       }
@@ -220,46 +271,92 @@
             ↺ 처음부터 다시하기를 누르면 다른 문제 세트로 바뀝니다
           </p>
 
-          <div
-            class="youtube-mission-box rounded-2xl p-5 sm:p-6 mb-5 text-left"
-            role="region"
-            aria-label="안전파수꾼제로미 유튜브 구독 미션"
-          >
-            <p class="text-body-main text-lg sm:text-xl text-red-900 leading-relaxed mb-4 tts-readable youtube-mission-guide">
-              반장님! 작업 전 영상으로 먼저 배우는 <strong>'안전파수꾼 제로미'</strong> 유튜브 채널을
-              구독하시면 <strong class="text-red-700">안전 점수 10점</strong>을 먼저 드립니다!
-            </p>
-            <button
-              type="button"
-              id="btn-youtube-subscribe"
-              class="btn-youtube w-full rounded-2xl py-5 px-4 text-btn-main text-xl sm:text-2xl font-bold tts-readable"
-              aria-label="안전파수꾼제로미 유튜브 구독하기, 새 창에서 열림"
-            >
-              📺 안전파수꾼제로미 유튜브 구독하기
-            </button>
-            <p
-              id="youtube-mission-status"
-              class="text-center text-lg sm:text-xl font-bold text-stone-500 mt-3 tts-readable youtube-mission-status-text"
-              aria-live="polite"
-            ></p>
-          </div>
+          <div class="start-mode-picker" role="presentation">
+            <div class="start-tabs" role="tablist" aria-label="게임 시작 방법 선택">
+              <button
+                type="button"
+                id="tab-subscribe"
+                class="start-tab tts-readable"
+                role="tab"
+                aria-selected="false"
+                aria-controls="panel-subscribe"
+              >
+                📺 구독하고<br />게임하기
+              </button>
+              <button
+                type="button"
+                id="tab-direct"
+                class="start-tab active tts-readable"
+                role="tab"
+                aria-selected="true"
+                aria-controls="panel-direct"
+              >
+                ▶ 그냥<br />게임하기
+              </button>
+            </div>
 
-          <button
-            type="button"
-            id="btn-start-game"
-            class="btn-primary-action btn-start-disabled w-full rounded-2xl py-5 px-6 text-btn-main text-2xl sm:text-3xl font-bold tts-readable"
-            aria-label="게임 시작하기"
-            aria-disabled="true"
-            disabled
-          >
-            ▶ 게임 시작하기
-          </button>
-          <p
-            id="start-hint"
-            class="text-base sm:text-lg text-stone-500 mt-3 tts-readable"
-          >
-            ↑ 먼저 유튜브 구독 버튼을 눌러 주세요
-          </p>
+            <div
+              id="panel-subscribe"
+              class="start-tab-panel text-left"
+              role="tabpanel"
+              aria-labelledby="tab-subscribe"
+              hidden
+            >
+              <div
+                class="youtube-mission-box rounded-2xl p-5 sm:p-6 mb-4"
+                role="region"
+                aria-label="안전파수꾼제로미 유튜브 구독"
+              >
+                <p class="text-body-main text-lg sm:text-xl text-red-900 leading-relaxed mb-4 tts-readable">
+                  반장님! 작업 전 영상으로 먼저 배우는 <strong>'안전파수꾼 제로미'</strong> 유튜브를
+                  구독하시면 <strong class="text-red-700">안전 점수 10점</strong>을 먼저 드립니다!
+                </p>
+                <button
+                  type="button"
+                  id="btn-youtube-subscribe"
+                  class="btn-youtube w-full rounded-2xl py-4 px-4 text-xl sm:text-2xl font-bold tts-readable"
+                  aria-label="안전파수꾼제로미 유튜브 구독하기, 새 창"
+                >
+                  📺 안전파수꾼제로미 유튜브 구독하기
+                </button>
+                <p
+                  id="youtube-mission-status"
+                  class="text-center text-lg font-bold text-stone-500 mt-3 tts-readable"
+                  aria-live="polite"
+                ></p>
+              </div>
+              <button
+                type="button"
+                id="btn-start-with-subscribe"
+                class="btn-primary-action w-full rounded-2xl py-5 px-6 text-2xl sm:text-3xl font-bold tts-readable"
+                aria-label="구독하고 게임 시작하기"
+              >
+                ▶ 구독하고 게임 시작하기
+              </button>
+              <p id="subscribe-start-hint" class="text-base text-stone-500 mt-2 text-center tts-readable">
+                유튜브 구독 확인 후 시작하시면 보너스 10점!
+              </p>
+            </div>
+
+            <div
+              id="panel-direct"
+              class="start-tab-panel active text-center"
+              role="tabpanel"
+              aria-labelledby="tab-direct"
+            >
+              <p class="text-body-main text-xl sm:text-2xl text-stone-600 mb-6 tts-readable leading-relaxed">
+                구독 없이 바로<br />안전 퀴즈에 도전합니다!
+              </p>
+              <button
+                type="button"
+                id="btn-start-direct"
+                class="btn-primary-action w-full rounded-2xl py-5 px-6 text-2xl sm:text-3xl font-bold tts-readable"
+                aria-label="그냥 게임하기, 바로 시작"
+              >
+                ▶ 바로 게임 시작하기
+              </button>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -620,6 +717,7 @@
         quizSetIndex: 0,
         quizResults: STAGE_DEFS.map(() => [null, null]),
         lastAnswerCorrect: false,
+        safetyBonusPoints: 0,
       };
 
       function getCurrentQuiz() {
@@ -806,6 +904,13 @@
         }
 
         if (allQuizzesCorrect()) {
+          const bonusEl = document.querySelector('.final-subtext');
+          if (bonusEl && state.safetyBonusPoints > 0) {
+            bonusEl.innerHTML =
+              '현장의 영웅 김반장님! 7단계 14문제를 모두 맞히고<br />' +
+              '<span class="text-red-700 font-bold">유튜브 구독 보너스 안전 점수 10점</span>까지 챙기셨습니다!<br />' +
+              '모든 대원을 무사히 퇴근시키셨습니다. 오늘 현장도 <strong class="text-emerald-700">안전 패스</strong>!';
+          }
           showScreen('final');
           announce('대한민국 1등 명예 안전소장 등극!');
         } else {
@@ -828,26 +933,29 @@
         );
       }
 
-      function setStartButtonEnabled(enabled) {
-        const btn = $('btn-start-game');
-        const hint = $('start-hint');
-        if (!btn) return;
-        if (enabled) {
-          btn.disabled = false;
-          btn.removeAttribute('aria-disabled');
-          btn.classList.remove('btn-start-disabled');
-          if (hint) hint.textContent = '준비 완료! 게임을 시작하세요';
-        } else {
-          btn.disabled = true;
-          btn.setAttribute('aria-disabled', 'true');
-          btn.classList.add('btn-start-disabled');
-          if (hint) hint.textContent = '↑ 먼저 유튜브 구독 버튼을 눌러 주세요';
+      function switchStartTab(tabId) {
+        const isSubscribe = tabId === 'subscribe';
+        const tabSub = $('tab-subscribe');
+        const tabDirect = $('tab-direct');
+        const panelSub = $('panel-subscribe');
+        const panelDirect = $('panel-direct');
+
+        if (tabSub && tabDirect && panelSub && panelDirect) {
+          tabSub.classList.toggle('active', isSubscribe);
+          tabDirect.classList.toggle('active', !isSubscribe);
+          tabSub.setAttribute('aria-selected', isSubscribe ? 'true' : 'false');
+          tabDirect.setAttribute('aria-selected', isSubscribe ? 'false' : 'true');
+          panelSub.classList.toggle('active', isSubscribe);
+          panelDirect.classList.toggle('active', !isSubscribe);
+          panelSub.hidden = !isSubscribe;
+          panelDirect.hidden = isSubscribe;
         }
       }
 
       function renderYoutubeMissionUI() {
         const subBtn = $('btn-youtube-subscribe');
         const status = $('youtube-mission-status');
+        const hint = $('subscribe-start-hint');
         if (!subBtn || !status) return;
 
         if (isYoutubeMissionDone()) {
@@ -856,10 +964,9 @@
           subBtn.classList.add('btn-youtube-done');
           subBtn.disabled = true;
           subBtn.setAttribute('aria-disabled', 'true');
-          status.textContent = '✅ 안전 점수 10점 획득! (구독 미션 완료)';
-          status.className =
-            'text-center text-lg sm:text-xl font-bold text-emerald-700 mt-3 tts-readable youtube-mission-status-text';
-          setStartButtonEnabled(true);
+          status.textContent = '✅ 안전 점수 10점 획득!';
+          status.className = 'text-center text-lg font-bold text-emerald-700 mt-3 tts-readable';
+          if (hint) hint.textContent = '보너스 적용 완료! 아래 버튼으로 게임을 시작하세요.';
           return;
         }
 
@@ -868,11 +975,11 @@
         subBtn.disabled = false;
         subBtn.removeAttribute('aria-disabled');
         if (youtubeMission.pendingReturn) {
-          status.textContent = '유튜브 창을 보신 뒤, 이 화면으로 돌아와 주세요…';
+          status.textContent = '유튜브 확인 후 [구독하고 게임 시작하기]를 눌러 주세요.';
         } else {
           status.textContent = '';
         }
-        setStartButtonEnabled(false);
+        if (hint) hint.textContent = '유튜브 구독 확인 후 시작하시면 보너스 10점!';
       }
 
       function completeYoutubeMission() {
@@ -881,7 +988,7 @@
         youtubeMission.pendingReturn = false;
         localStorage.setItem(YOUTUBE_MISSION_KEY, 'done');
         renderYoutubeMissionUI();
-        announce('확인 완료! 안전 점수 10점을 획득했습니다. 게임을 시작할 수 있습니다.');
+        announce('확인 완료! 안전 점수 10점을 획득했습니다. [구독하고 게임 시작하기]를 눌러 주세요.');
       }
 
       function openYoutubeChannel() {
@@ -910,6 +1017,26 @@
         }
       }
 
+      function startWithSubscribePath() {
+        if (!isYoutubeMissionDone()) {
+          openYoutubeChannel();
+          announce('유튜브 구독 후 돌아오시면 보너스 10점과 함께 게임을 시작할 수 있습니다.');
+          return;
+        }
+        state.safetyBonusPoints = 10;
+        startGame(false);
+      }
+
+      function initStartTabs() {
+        $('tab-subscribe')?.addEventListener('click', () => switchStartTab('subscribe'));
+        $('tab-direct')?.addEventListener('click', () => switchStartTab('direct'));
+        $('btn-start-direct')?.addEventListener('click', () => {
+          state.safetyBonusPoints = 0;
+          startGame(false);
+        });
+        $('btn-start-with-subscribe')?.addEventListener('click', startWithSubscribePath);
+      }
+
       function initYoutubeMission() {
         renderYoutubeMissionUI();
         $('btn-youtube-subscribe')?.addEventListener('click', openYoutubeChannel);
@@ -923,14 +1050,8 @@
 
       document.addEventListener('DOMContentLoaded', () => {
         applyQuizSet(getStoredQuizSetIndex());
+        initStartTabs();
         initYoutubeMission();
-        $('btn-start-game').addEventListener('click', () => {
-          if (!isYoutubeMissionDone()) {
-            announce('먼저 유튜브 구독 미션을 완료해 주세요.');
-            return;
-          }
-          startGame(false);
-        });
 
         $('btn-to-quiz').addEventListener('click', () => {
           state.currentQuizIndex = 0;
