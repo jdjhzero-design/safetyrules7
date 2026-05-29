@@ -4,6 +4,18 @@
 
 ## 실행
 
+### GitHub Pages (온라인)
+
+배포 주소: **https://jdjhzero-design.github.io/safetyrules7/**
+
+처음 404가 나오면:
+
+1. [저장소 Settings → Pages](https://github.com/jdjhzero-design/safetyrules7/settings/pages) 이동
+2. **Build and deployment** → Source: **GitHub Actions** 선택
+3. **Actions** 탭에서 `Deploy to GitHub Pages` 워크플로가 완료될 때까지 1~3분 대기
+
+### 로컬
+
 `index.html`을 브라우저에서 더블클릭하거나:
 
 ```powershell
